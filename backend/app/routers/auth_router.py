@@ -5,6 +5,9 @@ from app.db.session import get_db
 from app.schemas.user import UserCreate, UserOut, TokenOut, UserLogin
 from app.services.auth_service import AuthService
 
+from app.core.dependencies import get_current_user
+from app.models.user import User
+
 router = APIRouter(
     prefix="/api/v1/auth",
     tags=["Auth"],
@@ -30,3 +33,13 @@ def login(
     db: Session = Depends(get_db),
 ):
     return AuthService.login(db,payload)
+
+
+@router.get(
+    "/me",
+    response_model=UserOut,
+)
+def get_me(
+    current_user: User = Depends(get_current_user),
+):
+    return current_user

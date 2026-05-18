@@ -1,0 +1,23 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+backend/venv/
+
+# Environment
+.env
+
+# Uploads
+uploads/
+
+# Editor
+.vscode/
+.idea/
+
+# Alembic / cache
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

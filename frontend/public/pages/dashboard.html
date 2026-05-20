@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | AI Internship Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/pages/dashboard.css">
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>AI Intern</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#">Dashboard</a></li>
+                    <li><a href="#">Geçmiş Analizler</a></li>
+                    <li><a href="#">Ayarlar</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-info">
+                    <h1>Hoş Geldin, Yazılımcı 👋</h1>
+                    <p>CV'ni analiz et, GitHub projelerini değerlendir ve gelişim raporunu al.</p>
+                </div>
+                <div class="user-profile">
+                    <span class="user-name">Kullanıcı Adı</span>
+                </div>
+            </header>
+
+            <section class="grid grid-3">
+                
+                <div class="action-card">
+                    <div class="icon-box">📁</div>
+                    <div class="card-content">
+                        <h3>CV Yükle</h3>
+                        <p>PDF formatındaki güncel özgeçmişini sisteme yükleyerek yetenek analizini başlat.</p>
+                    </div>
+                    <div class="card-footer">
+                        <input type="file" id="cv-upload" hidden accept=".pdf">
+                        <label for="cv-upload" class="btn-primary">Dosya Seç</label>
+                        <p id="cv-status" class="action-status">Henüz CV yüklenmedi</p>
+                    </div>
+                </div>
+
+                <div class="action-card">
+                    <div class="icon-box">🔗</div>
+                    <div class="card-content">
+                        <h3>GitHub Projeleri</h3>
+                        <p>Projelerinin kod kalitesini ölçmek için profil veya repo linkini buraya ekle.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-primary" onclick="promptGithub()">Link Gir</button>
+                        <p id="github-status" class="action-status">Henüz GitHub linki girilmedi</p>
+                    </div>
+                </div>
+
+                <div class="action-card highlighted">
+                    <div class="icon-box">🚀</div>
+                    <div class="card-content">
+                        <h3>Analiz Oluştur</h3>
+                        <p>Yüklediğin verileri yapay zeka ile işle ve kariyer yol haritanı hemen oluştur.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-login" id="start-analysis">Analizi Başlat</button>
+                        <p id="analysis-status" class="action-status">Analiz bekleniyor</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="recent-activity">
+                <h2>Son İşlemler</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>İşlem</th>
+                                <th>Tarih</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CV Analizi</td>
+                                <td>21.05.2024</td>
+                                <td><span class="status completed">Tamamlandı</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script type="module" src="../../assets/js/pages/dashboard.js"></script>
+</body>
+</html>

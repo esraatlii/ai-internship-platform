@@ -7,13 +7,16 @@ async function request(
     method = "GET",
     body = null,
     auth = true,
+    isFormData = false,
   } = {}
 ) {
   const url = `${CONFIG.API_BASE_URL}${path}`;
 
-  const headers = {
-    "Content-Type": "application/json",
-  };
+  const headers = {};
+
+  if (!isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
 
   if (auth) {
     const token = storage.getToken();
@@ -26,7 +29,7 @@ async function request(
   const response = await fetch(url, {
     method,
     headers,
-    body: body ? JSON.stringify(body) : null,
+    body: body ? (isFormData ? body : JSON.stringify(body)) : null,
   });
 
   const text = await response.text();
@@ -66,6 +69,15 @@ export const apiClient = {
       ...options,
       method: "POST",
       body,
+    });
+  },
+
+  postForm(path, formData, options = {}) {
+    return request(path, {
+      ...options,
+      method: "POST",
+      body: formData,
+      isFormData: true,
     });
   },
 

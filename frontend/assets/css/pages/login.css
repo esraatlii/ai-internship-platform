@@ -1,0 +1,131 @@
+/* ==========================================================================
+   LOGIN PAGE STYLES
+   ========================================================================== */
+
+.login-container {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    height: 650px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Sol Panel - Tanıtım Alanı */
+.login-sidebar {
+    flex: 1;
+    background: linear-gradient(135deg, #1e293b 0%, var(--bg-dark) 100%);
+    color: var(--white);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Yapay zeka efekti (Dekoratif) */
+.login-sidebar::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(37, 99, 235, 0.15);
+    filter: blur(80px);
+    border-radius: 50%;
+}
+
+.sidebar-content h2 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.sidebar-content h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.sidebar-content p {
+    color: #94a3b8;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+/* Sağ Panel - Form Alanı */
+.login-form-area {
+    flex: 1.2;
+    padding: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Input Grupları ve Form Elemanları */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--input-bg);
+    transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.forgot-link {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .login-sidebar {
+        padding: 32px;
+        min-height: 200px;
+    }
+
+    .sidebar-content p, .sidebar-footer {
+        display: none;
+    }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staj Takip Sistemi - Giriş</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/components/buttons.css">
+    <link rel="stylesheet" href="../../assets/css/pages/login.css">
+</head>
+
+<body class="full-center-layout">
+
+    <div class="login-container">
+        <div class="login-sidebar">
+            <div class="sidebar-content">
+                <h2>AI-Powered</h2>
+                <h1>Staj Takip Sistemi</h1>
+                <p>Yapay zeka destekli performans analizi, otomatik raporlama ve akıllı stajyer eşleştirme modülleri ile süreçlerinizi dijitalleştirin.</p>
+            </div>
+            <div class="sidebar-footer">
+                <p>&copy; 2026 Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+
+        <div class="login-form-area">
+            <div class="form-box">
+                <div class="form-header">
+                    <h2>Sisteme Giriş Yapın</h2>
+                    <p>Lütfen kurumsal e-posta ve şifrenizi giriniz.</p>
+                </div>
+
+                <form action="#" method="POST">
+                    <div class="input-group">
+                        <label for="email">E-posta Adresi</label>
+                        <input type="email" id="email" name="email" placeholder="ad.soyad@kurum.com" required autocomplete="email">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-wrapper">
+                            <label for="password">Şifre</label>
+                            <a href="#" class="forgot-link">Şifremi Unuttum</a>
+                        </div>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember">
+                            <span>Beni Hatırla</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<script type="module" src="../../assets/js/pages/login.js"></script>
+</body>
+</html>

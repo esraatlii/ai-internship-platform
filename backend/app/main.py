@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.routers.auth_router import router as auth_router
 from app.routers.cv_router import router as cv_router
+from app.routers.github_router import router as github_router
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -25,6 +26,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(cv_router)
+app.include_router(github_router)
 
 @app.get("/")
 def root():

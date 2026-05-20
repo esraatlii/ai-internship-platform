@@ -25,3 +25,12 @@ class GitHubProfileRepository:
         db.refresh(profile)
 
         return profile
+    
+    @staticmethod
+    def get_latest_by_user_id(db: Session, user_id: int):
+        return (
+            db.query(GitHubProfile)
+            .filter(GitHubProfile.user_id == user_id)
+            .order_by(GitHubProfile.created_at.desc())
+            .first()
+        )

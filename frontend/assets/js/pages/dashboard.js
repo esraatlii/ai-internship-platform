@@ -34,9 +34,7 @@ function setupLogout() {
 
   logoutBtn.addEventListener("click", (event) => {
     event.preventDefault();
-
     storage.clearAll();
-
     window.location.href = "./login.html";
   });
 }
@@ -54,17 +52,17 @@ function loadDashboardStatus() {
   const savedGithubUsername = localStorage.getItem("github_username");
   const savedAnalysisScore = localStorage.getItem("analysis_score");
 
-  if (savedCvName) {
+  if (savedCvName && cvStatus) {
     cvStatus.textContent = `CV yüklendi: ${savedCvName}`;
     cvStatus.style.color = "green";
   }
 
-  if (savedGithubUsername) {
+  if (savedGithubUsername && githubStatus) {
     githubStatus.textContent = `GitHub analiz edildi: ${savedGithubUsername}`;
     githubStatus.style.color = "green";
   }
 
-  if (savedAnalysisScore) {
+  if (savedAnalysisScore && analysisStatus) {
     analysisStatus.textContent = `Analiz tamamlandı. Skor: ${savedAnalysisScore}/100`;
     analysisStatus.style.color = "green";
   }
@@ -135,38 +133,93 @@ function loadActivities() {
   });
 }
 
-cvInput.addEventListener("change", async (event) => {
-  event.preventDefault();
+function showAnalysisResult(analysis) {
+  if (!analysis || !analysisResultSection) return;
 
-  const file = event.target.files[0];
+  analysisResultSection.classList.remove("hidden");
 
-  if (!file) return;
-
-  try {
-    cvStatus.textContent = "CV yükleniyor...";
-    cvStatus.style.color = "#6b7280";
-
-    const result = await cvService.uploadCV(file);
-
-    console.log("CV upload result:", result);
-
-    localStorage.setItem("uploaded_cv_name", file.name);
-
-    cvStatus.textContent = `CV yüklendi: ${file.name}`;
-    cvStatus.style.color = "green";
-
-    addActivity("CV Yükleme", "Tamamlandı");
-    loadActivities();
-  } catch (error) {
-    console.error("CV upload error:", error);
-
-    cvStatus.textContent = error.message;
-    cvStatus.style.color = "red";
-
-    addActivity("CV Yükleme", "Başarısız");
-    loadActivities();
+  if (resultScore) {
+    resultScore.textContent =
+      analysis.score !== undefined && analysis.score !== null
+        ? `${analysis.score}/100`
+        : "0/100";
   }
-});
+
+  if (resultSummary) {
+    resultSummary.textContent = analysis.summary || "Özet bulunamadı.";
+  }
+
+  if (resultMissingSkills) {
+    resultMissingSkills.textContent =
+      analysis.missing_skills || "Eksik teknoloji bilgisi bulunamadı.";
+  }
+
+  if (resultEmail) {
+    resultEmail.textContent =
+      analysis.internship_email || "Staj maili bulunamadı.";
+  }
+
+  if (resultLinkedin) {
+    resultLinkedin.textContent =
+      analysis.linkedin_message || "LinkedIn mesajı bulunamadı.";
+  }
+}
+
+async function loadLatestAnalysis() {
+  try {
+    const analysis = await analysisService.getLatestAnalysis();
+
+    if (!analysis) return;
+
+    showAnalysisResult(analysis);
+
+    if (analysis.score !== undefined && analysis.score !== null) {
+      localStorage.setItem("analysis_score", analysis.score);
+
+      if (analysisStatus) {
+        analysisStatus.textContent = `Analiz tamamlandı. Skor: ${analysis.score}/100`;
+        analysisStatus.style.color = "green";
+      }
+    }
+  } catch (error) {
+    console.error("Son analiz sonucu getirilemedi:", error);
+  }
+}
+
+if (cvInput) {
+  cvInput.addEventListener("change", async (event) => {
+    event.preventDefault();
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    try {
+      cvStatus.textContent = "CV yükleniyor...";
+      cvStatus.style.color = "#6b7280";
+
+      const result = await cvService.uploadCV(file);
+
+      console.log("CV upload result:", result);
+
+      localStorage.setItem("uploaded_cv_name", file.name);
+
+      cvStatus.textContent = `CV yüklendi: ${file.name}`;
+      cvStatus.style.color = "green";
+
+      addActivity("CV Yükleme", "Tamamlandı");
+      loadActivities();
+    } catch (error) {
+      console.error("CV upload error:", error);
+
+      cvStatus.textContent = error.message;
+      cvStatus.style.color = "red";
+
+      addActivity("CV Yükleme", "Başarısız");
+      loadActivities();
+    }
+  });
+}
 
 window.promptGithub = async function () {
   const githubUrl = prompt("GitHub profil linkini gir:");
@@ -199,43 +252,46 @@ window.promptGithub = async function () {
   }
 };
 
-startAnalysisBtn.addEventListener("click", async () => {
-  try {
-    analysisStatus.textContent = "AI analizi oluşturuluyor...";
-    analysisStatus.style.color = "#6b7280";
+if (startAnalysisBtn) {
+  startAnalysisBtn.addEventListener("click", async () => {
+    try {
+      analysisStatus.textContent = "AI analizi oluşturuluyor...";
+      analysisStatus.style.color = "#6b7280";
 
-    const result = await analysisService.generateAnalysis();
+      const result = await analysisService.generateAnalysis();
 
-    analysisResultSection.classList.remove("hidden");
+      showAnalysisResult(result);
 
-    resultScore.textContent = `${result.score}/100`;
-    resultSummary.textContent = result.summary;
-    resultMissingSkills.textContent = result.missing_skills;
-    resultEmail.textContent = result.internship_email;
-    resultLinkedin.textContent = result.linkedin_message;
+      console.log("Analysis result:", result);
 
-    console.log("Analysis result:", result);
+      if (result.score !== undefined && result.score !== null) {
+        localStorage.setItem("analysis_score", result.score);
+        analysisStatus.textContent = `Analiz tamamlandı. Skor: ${result.score}/100`;
+      } else {
+        analysisStatus.textContent = "Analiz tamamlandı.";
+      }
 
-    localStorage.setItem("analysis_score", result.score);
+      analysisStatus.style.color = "green";
 
-    analysisStatus.textContent = `Analiz tamamlandı. Skor: ${result.score}/100`;
-    analysisStatus.style.color = "green";
+      addActivity("AI Analizi", "Tamamlandı");
+      loadActivities();
+    } catch (error) {
+      console.error("Analysis error:", error);
 
-    addActivity("AI Analizi", "Tamamlandı");
-    loadActivities();
-  } catch (error) {
-    console.error("Analysis error:", error);
+      analysisStatus.textContent = error.message;
+      analysisStatus.style.color = "red";
 
-    analysisStatus.textContent = error.message;
-    analysisStatus.style.color = "red";
-
-    addActivity("AI Analizi", "Başarısız");
-    loadActivities();
-  }
-});
+      addActivity("AI Analizi", "Başarısız");
+      loadActivities();
+    }
+  });
+}
 
 checkAuth();
+
 loadDashboardStatus();
 loadCurrentUser();
 setupLogout();
 loadActivities();
+
+await loadLatestAnalysis();

@@ -23,3 +23,13 @@ def generate_analysis(
     current_user: User = Depends(get_current_user),
 ):
     return AIService.generate_analysis(db, current_user)
+
+@router.get("/latest", response_model=AnalysisOut | None)
+def get_latest_analysis(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    return AIService.get_latest_analysis_for_user(
+        db=db,
+        user_id=current_user.id
+    )

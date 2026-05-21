@@ -92,3 +92,10 @@ Kurallar:
         )
 
         return analysis
+    
+    @staticmethod
+    def get_latest_analysis_for_user(db: Session, user_id: int):
+        return AnalysisRepository.get_latest_by_user_id(
+            db=db,
+            user_id=user_id
+        )

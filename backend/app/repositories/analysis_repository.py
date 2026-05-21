@@ -33,3 +33,12 @@ class AnalysisRepository:
         db.refresh(analysis)
 
         return analysis
+
+    @staticmethod
+    def get_latest_by_user_id(db: Session, user_id: int) -> Analysis | None:
+        return (
+            db.query(Analysis)
+            .filter(Analysis.user_id == user_id)
+            .order_by(Analysis.created_at.desc())
+            .first()
+        )

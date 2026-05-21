@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/components/buttons.css">
     <link rel="stylesheet" href="../../assets/css/pages/dashboard.css">
 </head>
 <body>
@@ -26,6 +27,12 @@
                     <li><a href="#">Ayarlar</a></li>
                 </ul>
             </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="btn-logout" id="logout-btn">
+                    <span class="icon">🚪</span>
+                    <span>Çıkış Yap</span>
+                </a>
+            </div>
         </aside>
 
         <main class="main-content">
@@ -35,7 +42,7 @@
                     <p>CV'ni analiz et, GitHub projelerini değerlendir ve gelişim raporunu al.</p>
                 </div>
                 <div class="user-profile">
-                    <span class="user-name">Kullanıcı Adı</span>
+                    <span id="user-name">Kullanıcı Adı</span>
                 </div>
             </header>
 
@@ -79,6 +86,35 @@
                 </div>
 
             </section>
+            
+            <section id="analysis-result-section" class="analysis-result hidden">
+                <div class="result-header">
+                    <h2>AI Analiz Sonucu</h2>
+                    <span id="result-score" class="score-badge">0/100</span>
+                </div>
+
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3>CV Özeti</h3>
+                        <p id="result-summary">Henüz analiz yapılmadı.</p>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Eksik Teknolojiler</h3>
+                        <p id="result-missing-skills">Henüz analiz yapılmadı.</p>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Staj Maili</h3>
+                        <p id="result-email">Henüz analiz yapılmadı.</p>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>LinkedIn Mesajı</h3>
+                        <p id="result-linkedin">Henüz analiz yapılmadı.</p>
+                    </div>
+                </div>
+            </section>
 
             <section class="recent-activity">
                 <h2>Son İşlemler</h2>
@@ -91,7 +127,7 @@
                                 <th>Durum</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="activity-table-body">
                             <tr>
                                 <td>CV Analizi</td>
                                 <td>21.05.2024</td>

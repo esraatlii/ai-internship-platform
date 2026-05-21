@@ -18,19 +18,25 @@ export const storage = {
     return !!localStorage.getItem(TOKEN_KEY);
   },
 
-    setUser(user) {
+  setUser(user) {
+    if (!user) return;
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   },
+
   getUser() {
     const raw = localStorage.getItem(USER_KEY);
-    return raw ? JSON.parse(raw) : null;
+
+    if (!raw || raw === "undefined") return null;
+
+    return JSON.parse(raw);
   },
+
   clearUser() {
     localStorage.removeItem(USER_KEY);
   },
 
   clearAll() {
-    this.clearToken();
+    this.removeToken();
     this.clearUser();
   },
 };

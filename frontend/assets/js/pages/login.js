@@ -1,4 +1,5 @@
 import { authService } from "../services/authService.js";
+import { storage } from "../core/storage.js";
 
 const form = document.querySelector("form");
 
@@ -12,13 +13,19 @@ form.addEventListener("submit", async (e) => {
   const password = passwordInput.value.trim();
 
   try {
-    await authService.login(email, password);
+    const result = await authService.login(email, password);
 
-    alert("Giriş başarılı");
+    storage.setToken(result.access_token);
 
-    window.location.href = "../pages/dashboard.html";
+    if (result.current_user) {
+      storage.setUser(result.current_user);
+    }
 
-  } catch (err) {
-    alert(err.message);
-  }
+  window.location.href = "../pages/dashboard.html";
+      alert("Giriş başarılı");
+
+      window.location.href = "../pages/dashboard.html";
+    } catch (err) {
+      alert(err.message);
+    }
 });

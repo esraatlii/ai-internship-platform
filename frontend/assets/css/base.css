@@ -1,45 +1,44 @@
-/* 1. Değişkenler (Tüm projede ortak kullanılacak renkler/ölçüler) */
 :root {
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --secondary-color: #8b5cf6;
+
     --bg-dark: #0f172a;
     --bg-light: #f1f5f9;
+    --bg-card: #ffffff;
+
     --text-main: #334155;
     --text-muted: #64748b;
+
     --border-color: #cbd5e1;
     --input-bg: #f8fafc;
     --white: #ffffff;
-    --radius-md: 8px;
-    --radius-lg: 16px;
-    --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+
+    --radius-md: 12px;
+    --radius-lg: 20px;
+
+    --shadow-sm: 0 10px 25px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.14);
 }
 
-/* 2. Global Sıfırlama (Reset) */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* 3. Tipografi ve Genel Body Ayarları */
-html, body {
-    height: 100%;
+html,
+body {
+    min-height: 100%;
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-light);
+    background: var(--bg-light);
     color: var(--text-main);
     line-height: 1.5;
-    body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 }
 
-/* 4. Link ve Genel Etiket Düzenlemeleri */
 a {
     text-decoration: none;
-    transition: color 0.2s ease;
+    color: inherit;
 }
 
 ul {
@@ -49,4 +48,18 @@ ul {
 img {
     max-width: 100%;
     display: block;
+}
+
+button,
+label,
+input {
+    font-family: inherit;
+}
+
+.full-center-layout {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
 }

@@ -84,11 +84,11 @@ Kurallar:
             user_id=current_user.id,
             cv_id=cv.id,
             github_profile_id=github_profile.id,
-            summary=data["summary"],
-            missing_skills=data["missing_skills"],
-            internship_email=data["internship_email"],
-            linkedin_message=data["linkedin_message"],
-            score=data["score"],
+            summary=data.get("summary", ""),
+            missing_skills=data.get("missing_skills", ""),
+            internship_email=data.get("internship_email", ""),
+            linkedin_message=data.get("linkedin_message", ""),
+            score=data.get("score", 0),
         )
 
         return analysis

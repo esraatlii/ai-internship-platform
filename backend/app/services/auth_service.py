@@ -49,4 +49,5 @@ class AuthService:
         return {
             "access_token": access_token,
             "token_type": "bearer",
+            "current_user": user,
         }

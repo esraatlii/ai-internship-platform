@@ -26,3 +26,4 @@ class UserLogin(BaseModel):
 class TokenOut(BaseModel):
     access_token: str
     token_type: str = "bearer"
+    current_user: UserOut
